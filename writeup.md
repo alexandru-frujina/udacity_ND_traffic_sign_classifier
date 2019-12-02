@@ -135,6 +135,7 @@ Here are 11 traffic signs that I found on the web:
 Here are the results of the prediction:
 
 ![alt text][image5]
+
 | Image				        |     Prediction	        					| 
 |:-------------------------:|:---------------------------------------------:| 
 | Traffic Signals  			| General caution								| 
