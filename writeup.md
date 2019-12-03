@@ -61,13 +61,13 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale as it provides better results.
+Looking at the grayscale image it preserves the essential features of traffic signs at a smaller dimension. Also the weights and biases can be found faster by using a single dimension instead of the three components of R, G, B.
 
 Here is an example of a traffic sign image before and after grayscaling.
 
 ![alt text][image3]
 
-As a last step, I normalized the image data because ...
+The normalization is done in order to avoid situations where errors in computations when an operation is performed between a number that is too big and another that is too small. In this case the situation is avoided by scaling the (0-255) range to (0.1-0.9).
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -92,8 +92,7 @@ My final model consisted of the following layers:
 | Fully connected		| input 120, outputs 84        					|
 | RELU					|												|
 | Fully connected		| input 84, outputs 10        					|
-| RELU					|												|
-| Softmax				|												|
+| Softmax				| Used further to calculate the loss			|
 |						|												|
  
 
@@ -152,7 +151,12 @@ Here are the results of the prediction:
 
 
 The model was able to correctly guess 4 of the 11 traffic signs, which gives an accuracy of 36.4%. The best results are for traffic signs found in the real world.
-The caution signals were confused mostly while other sings with different shapes were successfuly recognized.
+The caution signals were confused mostly while other signs with different shapes were successfuly recognized.
+After a traffic sign is detected it needs to be scaled to the input shape required by the neural network input in order to classify it.
+The further away traffic signs are, and by consequence the smaller the resolution, the less clear the information is. Some traffic signs due to their shape or color can be recognized from images with less resolution: priority road, give way.
+Brightness affects the recognition process as it is haed to distinguish the traffic sign shape from the background. Of course such images till need to be used as training data. Another option would be to preprocess the image to increase the brightness and then attempt to recognize it.
+Blur also has the same affect to decrease the clarity of the traffic sign. While shapes should still be distinguishable details in traffic signs for "caution" are harder to detect.
+Obstruction can also play a role in the recognition process by hiding information that the neural network has learned to put higher emphasis on. In such cases either some form of preprocessing would be useful or feed more information in the nerual network to try to "underfit" ideal cases and be more robust.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
